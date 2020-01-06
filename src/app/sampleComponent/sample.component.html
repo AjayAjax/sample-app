@@ -1,0 +1,178 @@
+<html>
+    <body>
+        
+    </body>
+    <!-- <div>
+        <h3>hello world {{title1}}</h3>
+        
+    </div> -->
+    <div class="main-container">
+        <div class="alert alert-app-level">
+          alert-app
+        </div>
+        <!-- <header class="header-1"> -->
+            <header class="header-6">
+                <div class="branding">
+                    <a href="..." class="nav-link">
+                        <clr-icon shape="vm-bug"></clr-icon>
+                        <span class="title">Sample App Demo</span>
+                    </a>
+                </div>
+                <div class="header-nav">
+                    <a href="..." class="active nav-link"><span class="nav-text">Home</span></a>
+                </div>
+                <div class="header-actions">
+                    <a href="..." class="nav-link nav-icon">
+                        <clr-icon shape="cog"></clr-icon>
+                    </a>
+                </div>
+            </header>
+           
+        <!-- </header> -->
+        <!-- <nav class="subnav">
+           Sub nav
+        </nav> -->
+        <div class="content-container">
+            <div class="content-area">
+               <!-- <clr-datagrid >
+                  <clr-dg-column>User ID</clr-dg-column>
+                  <clr-dg-column>Name</clr-dg-column>
+                  <clr-dg-column>Creation date</clr-dg-column>
+              
+                  <clr-dg-row >
+                      <clr-dg-cell>1</clr-dg-cell>
+                      <clr-dg-cell>asd</clr-dg-cell>
+                      <clr-dg-cell>12/12/2020</clr-dg-cell>
+                  </clr-dg-row>
+                  <clr-dg-row >
+                     <clr-dg-cell>1</clr-dg-cell>
+                     <clr-dg-cell>asd</clr-dg-cell>
+                     <clr-dg-cell>12/12/2020</clr-dg-cell>
+                 </clr-dg-row>
+              
+                  <clr-dg-footer>2</clr-dg-footer>
+              </clr-datagrid>
+
+              <table class ="table">
+                <tr *ngFor="let u of users">
+                  <td>
+                    {{u.id}}
+                  </td>
+                  <td>
+                    {{u.name}}
+                  </td>
+                  <td>
+                    {{u.age}}
+                  </td>
+                  <td>  
+                    <button class= 'btn btn-info' (click)="updateUser()"> UPDATE DATA</button>
+                  </td>
+                </tr>
+              </table> -->
+
+              <clr-datagrid *ngIf="users">
+                <clr-dg-column>User ID</clr-dg-column>
+                <clr-dg-column>Name</clr-dg-column>
+                <clr-dg-column>Email</clr-dg-column>
+                <clr-dg-column>Update</clr-dg-column>
+            
+                <clr-dg-row *ngFor="let user of users">
+                    <clr-dg-cell>{{user.id}}</clr-dg-cell>
+                    <clr-dg-cell>{{user.name}}</clr-dg-cell>
+                    <clr-dg-cell>{{user.email}}</clr-dg-cell>
+                    <!-- <clr-dg-cell> <button class= 'btn btn-info' (click)="updateUser($event)" value="{{user.id}}"> Edit</button></clr-dg-cell> -->
+                    <clr-dg-cell> <button class= 'btn btn-info' (click)="modal.open(user)" value="{{user.id}}"> Edit</button></clr-dg-cell>
+
+                    
+                </clr-dg-row>   
+
+                
+                    <app-edit-user-modal></app-edit-user-modal>
+                
+
+                <clr-dg-footer>{{users.length}} users</clr-dg-footer>
+            </clr-datagrid>
+            <div>
+                <h3 class="header-6">
+                    Search User
+                </h3>
+                
+                  <input type="text" id="searchId" placeholder="Enter id to search" [(ngModel)]="searchId" name="searchId" class="clr-input">             
+                  <button class="btn btn-outline" (click)="getUser($event)" style="margin-left: 20px;">Search</button>
+            </div>
+            <div *ngIf="displayData">
+                <clr-datagrid >
+                    <clr-dg-column>User ID</clr-dg-column>
+                    <clr-dg-column>Name</clr-dg-column>
+                    <clr-dg-column>Email</clr-dg-column>    
+                
+                    <clr-dg-row>
+                        <clr-dg-cell>{{searchUserData.id}}</clr-dg-cell>
+                        <clr-dg-cell>{{searchUserData.name}}</clr-dg-cell>
+                        <clr-dg-cell>{{searchUserData.email}}</clr-dg-cell>    
+                    </clr-dg-row>
+                </clr-datagrid>
+            </div>
+
+            <div *ngIf="addUserTab">
+                <form clrForm #form="ngForm" (ngSubmit)="addUser(form.value)">
+                    <clr-input-container>
+                        <label>User Id</label>
+                        <input clrInput type="text" [(ngModel)]="id" name="id" />
+                    </clr-input-container>
+                    <clr-input-container>
+                        <label>Name</label>
+                        <input clrInput type="text" [(ngModel)]="name" name="name" />
+                    </clr-input-container>
+                    <clr-input-container>
+                        <label>Email Id</label>
+                        <input clrInput type="email" [(ngModel)]="email" name="email" />
+                    </clr-input-container>
+                    <clr-input-container>
+                        <input clrInput type="submit" [(ngModel)]="model" />
+                    </clr-input-container>
+                </form>
+            </div>
+            <button (click)="basic = true" class="btn btn-primary">Test Model</button>
+            <clr-modal [(clrModalOpen)]="basic">
+                <h3 class="modal-title">I have a nice title</h3>
+                <div class="modal-body">
+                    <p>But not much to say...</p>
+                    <div *ngIf="displayData">
+                        <clr-datagrid >
+                            <clr-dg-column>User ID</clr-dg-column>
+                            <clr-dg-column>Name</clr-dg-column>
+                            <clr-dg-column>Email</clr-dg-column>    
+                        
+                            <clr-dg-row>
+                                <clr-dg-cell>{{searchUserData.id}}</clr-dg-cell>
+                                <clr-dg-cell>{{searchUserData.name}}</clr-dg-cell>
+                                <clr-dg-cell>{{searchUserData.email}}</clr-dg-cell>    
+                            </clr-dg-row>
+                        </clr-datagrid>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" (click)="basic = false">Cancel</button>
+                    <button type="button" class="btn btn-primary" (click)="basic = false">Ok</button>
+                </div>
+            </clr-modal>
+
+            </div>
+            <clr-vertical-nav [clrVerticalNavCollapsible]="true" [(clrVerticalNavCollapsed)]="collapsed">
+                <a clrVerticalNavLink routerLinkActive="active">
+                 <clr-icon clrVerticalNavIcon shape="search"></clr-icon>Search User</a>
+                 <a clrVerticalNavLink  routerLinkActive="active">
+                   <clr-icon clrVerticalNavIcon shape="doc"></clr-icon>Add User</a>
+                 <a clrVerticalNavLink routerLinkActive="active">
+                   <clr-icon clrVerticalNavIcon shape="user"></clr-icon>User Data</a>
+                 
+                 <div class="nav-divider"></div>
+                 
+               </clr-vertical-nav>
+            <!-- <nav class="sidenav">
+               nav1
+            </nav> -->
+        </div>
+      </div>
+</html>

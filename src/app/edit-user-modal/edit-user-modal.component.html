@@ -1,0 +1,24 @@
+<p>edit-user-modal works!</p>
+<form novalidate #f="ngForm" (ngSubmit)="onSubmit();">
+    <clr-modal [(clrModalOpen)]="show">
+        <div class="modal-title">Edit user</div>
+
+        <div class="modal-body">
+            <section class="form-block">
+                <div class="form-group ">
+                    <label>First name</label>
+                    <input type="text" name="firstName" autofocus *ngIf="user" [(ngModel)]="user.firstName" placeholder="first name" (keypress)="onKeyPress($event)" required>
+                </div>
+                <div class="form-group ">
+                    <label>Last name</label>
+                    <input type="text" name="lastName" *ngIf="user" [(ngModel)]="user.lastName" placeholder="last name" (keypress)="onKeyPress($event)" required>
+                </div>
+            </section>
+        </div>
+
+        <div class="modal-footer">
+            <button (click)="close()" class="btn btn-default">Cancel</button>
+            <button type="submit" class="btn btn-primary">OK</button>
+        </div>
+    </clr-modal>
+</form>
